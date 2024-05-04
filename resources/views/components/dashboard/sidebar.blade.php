@@ -112,7 +112,7 @@
                             <span>Pesanan</span>
                         </a>
                     @elseif(Auth::user()->role == 'operator')
-                        <a href="" class='sidebar-link'>
+                        <a href="{{ route('operator.orders.index') }}" class='sidebar-link'>
                             <i class="fa-solid fa-shopping-cart"></i>
                             <span>Pesanan</span>
                         </a>
@@ -132,7 +132,7 @@
                             <span>Riwayat Pesanan</span>
                         </a>
                     @elseif(Auth::user()->role == 'operator')
-                        <a href="" class='sidebar-link'>
+                        <a href="{{ route('operator.orders.history') }}" class='sidebar-link'>
                             <i class="fa-solid fa-history"></i>
                             <span>Riwayat Pesanan</span>
                         </a>
@@ -249,10 +249,14 @@
 
                 {{-- Auth --}}
                 <li class="sidebar-item">
-                    <a href="/" class='sidebar-link'>
+                    <a href="{{ route('logout') }}" class='sidebar-link' onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
                         <i class="fa-solid fa-sign-out"></i>
                         <span>&nbsp;Keluar</span>
                     </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
 
             </ul>

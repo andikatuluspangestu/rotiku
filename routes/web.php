@@ -4,12 +4,13 @@ use Illuminate\Support\Facades\Route;
 
 // Admin Controllers
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminOrderController;
 
 // Operator Controllers
 use App\Http\Controllers\Operator\OperatorController;
+use App\Http\Controllers\Operator\OperatorOrderController;
 use App\Http\Controllers\Operator\OperatorProductController;
 use App\Http\Controllers\Operator\OperatorCategoryController;
 
@@ -49,6 +50,20 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
     Route::get('/dashboard', [OperatorController::class, 'index'])->name('dashboard');
     Route::resource('categories', OperatorCategoryController::class);
     Route::resource('products', OperatorProductController::class);
+
+    Route::resource('orders', OperatorOrderController::class);
+
+    // Confirm Payment
+    Route::patch('/orders/{order}/confirm-payment', [OperatorOrderController::class, 'confirmPayment'])->name('orders.confirmPayment');
+
+    // Update Shipping
+    Route::patch('/orders/{order}/update-shipping', [AdminOrderController::class, 'updateShipping'])->name('orders.updateShipping');
+
+    // Order History
+    Route::get('history', [OperatorOrderController::class, 'history'])->name('orders.history');
+
+    // updateAdminNotes
+    Route::patch('/orders/{order}/updateAdminNotes', [OperatorOrderController::class, 'updateAdminNotes'])->name('orders.updateAdminNotes');
 });
 
 // User Route

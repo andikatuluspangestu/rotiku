@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminOrderController;
+use App\Http\Controllers\Admin\AdminMoneyController;
 
 // Operator Controllers
 use App\Http\Controllers\Operator\OperatorController;
@@ -42,6 +43,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // updateAdminNotes
     Route::patch('/orders/{order}/updateAdminNotes', [AdminOrderController::class, 'updateAdminNotes'])->name('orders.updateAdminNotes');
+
+    // income resource
+    Route::resource('incomes', AdminMoneyController::class);
 
 });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Income;
 use Illuminate\Http\Request;
 
 class AdminOrderController extends Controller
@@ -41,6 +42,18 @@ class AdminOrderController extends Controller
 
         $order->update([
             'payment_status' => 'paid',
+        ]);
+
+        // Ambil Field "total" dari data order di atas
+        $total = $order->total;
+
+        // Simpan data pemasukan ke dalam tabel incomes
+        Income::create([
+            'amount'        => $total,
+            'income_at'     => now(),
+            'description'   => 'Pembayaran Order ID: ' . $order->id,
+            'user_id'       => $order->user_id,
+            'order_id'      => $order->id,
         ]);
 
         return redirect()->back()->with('success', 'Konfirmasi pembayaran berhasil.');

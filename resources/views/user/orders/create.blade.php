@@ -61,11 +61,11 @@
                                 @enderror
                             </div>
 
-                            {{-- Sescription --}}
+                            {{-- CS Notes --}}
                             <div class="form-group mb-3">
-                                <label for="description">Deskripsi</label>
-                                <textarea class="form-control mt-2" id="description" name="description">{{ old('description') }}</textarea>
-                                @error('description')
+                                <label for="customer_notes">Deskripsi</label>
+                                <textarea class="form-control mt-2" id="customer_notes" name="customer_notes">{{ old('customer_notes') }}</textarea>
+                                @error('customer_notes')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>

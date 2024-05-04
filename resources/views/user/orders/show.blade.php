@@ -25,6 +25,20 @@
         <section class="row">
             <div class="col-md-12">
                 <div class="card p-4">
+
+                    {{-- Alert Error --}}
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ session('error') }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @elseif (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ session('success') }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
                     <div class="panel-body no-padding">
                         {{-- Tombol Print --}}
                         <div class="text-start">
@@ -76,21 +90,25 @@
                                     <tr>
                                         <th>Status Pesanan</th>
                                         <td>
-                                            @if ($order->accepted_status == 'completed')
+                                            @if ($order->accepted_status == 'accepted')
                                                 <span class="badge bg-warning text-dark">Diterima</span>
                                             @elseif ($order->shipping_status == 'shipping')
-                                                {{-- Tombol Konfirmasi Pesanan Diterima --}}
                                                 @if ($order->accepted_status == 'pending' && $order->payment_status == 'paid')
-                                                    <form
-                                                        action="{{ route('user.orders.completed', ['user' => Auth::user()->id, 'order' => $order->id]) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <input type="hidden" name="accepted_status" value="completed">
-                                                        <button type="submit"
-                                                            class="btn btn-sm btn-success">Konfirmasi Diterima</button>
-                                                    </form>
+                                                <form
+                                                    action="{{ route('user.orders.completed', ['user' => Auth::user()->id, 'order' => $order->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <input type="hidden" name="accepted_status" value="completed">
+                                                    <button type="submit" class="btn btn-sm btn-success">Konfirmasi Diterima</button>
+                                                </form>
                                                 @endif
+                                            @elseif ($order->accepted_status == 'declined')
+                                                <span class="badge bg-danger">Dibatalkan</span>
+                                            @elseif ($order->accepted_status == 'pending')
+                                                <span class="badge bg-secondary">Menunggu Konfirmasi Admin</span>
+                                            @elseif ($order->accepted_status == 'accepted')
+                                                <span class="badge bg-success">Diterima</span>
                                             @else
                                                 <span class="badge bg-danger">Belum Diterima</span>
                                             @endif
@@ -118,10 +136,20 @@
                                     <tr>
                                         <th>Catatan Pembeli</th>
                                         <td>
-                                            @if ($order->description)
-                                                {{ $order->description }}
+                                            @if ($order->customer_notes)
+                                                {{ $order->customer_notes }}
                                             @else
-                                                -
+                                                Tidak Ada Catatan
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Catatan Admin</th>
+                                        <td>
+                                            @if ($order->admin_notes)
+                                                {{ $order->admin_notes }}
+                                            @else
+                                                Tidak Ada Catatan
                                             @endif
                                         </td>
                                     </tr>

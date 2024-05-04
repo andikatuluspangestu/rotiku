@@ -33,6 +33,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Confirm Payment
     Route::patch('/orders/{order}/confirm-payment', [AdminOrderController::class, 'confirmPayment'])->name('orders.confirmPayment');
 
+    // Update Shipping
+    Route::patch('/orders/{order}/update-shipping', [AdminOrderController::class, 'updateShipping'])->name('orders.updateShipping');
+
+    // Order History
+    Route::get('history', [AdminOrderController::class, 'history'])->name('orders.history');
+
+    // updateAdminNotes
+    Route::patch('/orders/{order}/updateAdminNotes', [AdminOrderController::class, 'updateAdminNotes'])->name('orders.updateAdminNotes');
+
 });
 
 // Operator Route
@@ -56,7 +65,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/user/orders/{order}/payment', [UserOrderController::class, 'payment'])->name('user.orders.payment');
 
     // Completed Order
-    Route::get('/user/orders/{order}/completed', [UserOrderController::class, 'completed'])->name('user.orders.completed');
+    Route::patch('/user/orders/{order}/completed', [UserOrderController::class, 'completed'])->name('user.orders.completed');
 
     // updateAccepted
     Route::get('/user/orders/{order}/updateAccepted', [UserOrderController::class, 'updateAccepted'])->name('user.orders.updateAccepted');

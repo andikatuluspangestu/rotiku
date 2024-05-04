@@ -60,37 +60,35 @@
                                     <tr>
                                         <th>Status Pengiriman</th>
                                         <td>
-                                            @if ($order->shipping_status == 'completed')
-                                                <span class="badge bg-success text-dark">Terkirim</span>
-                                            @elseif ($order->shipping_status == 'shipping')
-                                                <span class="badge bg-warning text-dark">Sedang Dikirim</span>
-                                            @elseif ($order->shipping_status == 'processing')
-                                                <span class="badge bg-secondary">Dikemas</span>
-                                            @elseif ($order->shipping_status == 'declined')
-                                                <span class="badge bg-danger">Dibatalkan</span>
-                                            @else
-                                                <span class="badge bg-primary">Belum Dikirim</span>
-                                            @endif
+                                            {{-- Ubah status dengan dropdown --}}
+                                            <form
+                                                action="{{ route('admin.orders.updateShipping', ['user' => Auth::user()->id, 'order' => $order->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <select name="shipping_status" class="form-select">
+                                                    <option value="pending" @if ($order->shipping_status == 'pending') selected @endif>
+                                                        Belum Dikirim</option>
+                                                    <option value="processing" @if ($order->shipping_status == 'processing') selected @endif>
+                                                        Dikemas</option>
+                                                    <option value="shipping" @if ($order->shipping_status == 'shipping') selected @endif>
+                                                        Sedang Dikirim</option>
+                                                    <option value="completed" @if ($order->shipping_status == 'completed') selected @endif>
+                                                        Terkirim</option>
+                                                    <option value="declined" @if ($order->shipping_status == 'declined') selected @endif>
+                                                        Dibatalkan</option>
+                                                </select>
+                                                <button type="submit" class="btn btn-sm btn-primary mt-2">Ubah Status</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Status Pesanan</th>
                                         <td>
-                                            @if ($order->accepted_status == 'completed')
+                                            @if ($order->accepted_status == 'accepted')
                                                 <span class="badge bg-warning text-dark">Diterima</span>
                                             @elseif ($order->shipping_status == 'shipping')
-                                                {{-- Tombol Konfirmasi Pesanan Diterima --}}
-                                                @if ($order->accepted_status == 'pending' && $order->payment_status == 'paid')
-                                                    <form
-                                                        action="{{ route('admin.orders.completed', ['user' => Auth::user()->id, 'order' => $order->id]) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <input type="hidden" name="accepted_status" value="completed">
-                                                        <button type="submit"
-                                                            class="btn btn-sm btn-success">Konfirmasi Diterima</button>
-                                                    </form>
-                                                @endif
+                                                <span>Sedang Dikirim</span>
                                             @else
                                                 <span class="badge bg-danger">Belum Diterima</span>
                                             @endif
@@ -118,16 +116,42 @@
                                     <tr>
                                         <th>Catatan Pembeli</th>
                                         <td>
-                                            @if ($order->description)
-                                                {{ $order->description }}
+                                            @if ($order->customer_notes)
+                                                {{ $order->customer_notes }}
                                             @else
                                                 -
                                             @endif
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <th>Konfirmasi Barang Diterima</th>
+                                        <td>
+                                            @if ($order->accepted_status == 'accepted')
+                                                <span class="badge bg-success">Diterima</span>
+                                            @else
+                                                <span class="badge bg-danger">Belum Diterima</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        {{-- Form Admin Notes --}}
+                                        <th>Catatan Admin</th>
+                                        <td>
+                                            <form
+                                                action="{{ route('admin.orders.updateAdminNotes', ['user' => Auth::user()->id, 'order' => $order->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <textarea name="admin_notes" class="form-control"
+                                                    placeholder="Catatan Admin">{{ $order->admin_notes }}</textarea>
+                                                <button type="submit" class="btn btn-sm btn-primary mt-2">Simpan Catatan</button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
 
+                            {{-- Detail Pembayaran --}}
                             <div class="col-12">
                                 <h4>Detail Pembayaran</h4>
                                 <table class="table table-bordered">
@@ -193,6 +217,7 @@
                                 </table>
                             </div>
 
+                            {{-- Detail Produk Pesanan --}}
                             <div class="col-12">
                                 <tr>
                                     <h4>Detail Produk Pesanan</h4>

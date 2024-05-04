@@ -29,29 +29,20 @@
                                             <td>{{ $order->name }}</td>
                                             <td>{{ $order->address }}</td>
                                             <td>
-                                                @if ($order->shipping_status == 'shipping')
-                                                    <span class="badge bg-warning text-dark">Terkirim</span>
-                                                @elseif ($order->shipping_status == 'delivered')
-                                                    <span class="badge bg-success">Delivered</span>
-                                                @else
-                                                    <span class="badge bg-danger">Belum Dikirim</span>
+                                                @if ($order->shipping_status == 'pending')
+                                                    <span class="badge bg-warning text-dark">Menunggu Konfirmasi</span>
+                                                @elseif ($order->shipping_status == 'processing')
+                                                    <span class="badge bg-primary">Dikemas</span>
+                                                @elseif ($order->shipping_status == 'shipping')
+                                                    <span class="badge bg-secondary">Sedang Dikirim</span>
+                                                @elseif ($order->shipping_status == 'completed')
+                                                    <span class="badge bg-success">Diterima</span>
                                                 @endif
                                             </td>
                                             <td>Rp {{ number_format($order->total) }}</td>
                                             <td>
                                                 <a href="{{ route('user.orders.show', ['user' => $order->user_id, 'order' => $order->id]) }}"
                                                     class="btn btn-sm btn-info">Detail</a>
-
-                                                @if ($order->shipping_status == 'shipping')
-                                                    <form
-                                                        action="{{ route('user.orders.completed', ['user' => $order->user_id, 'order' => $order->id]) }}"
-                                                        method="POST" class="d-inline">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit"
-                                                            class="btn btn-sm btn-success">Diterima</button>
-                                                    </form>
-                                                @endif
                                             </td>
                                         </tr>
                                     @empty

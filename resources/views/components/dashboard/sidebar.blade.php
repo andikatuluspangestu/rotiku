@@ -149,63 +149,18 @@
                 {{-- Keuangan --}}
                 @if (Auth::user()->role == 'admin')
                     <li class="sidebar-title">Keuangan</li>
-                    <li class="sidebar-item">
-                        <a href="/" class='sidebar-link'>
-                            <i class="fa-solid fa-arrow-down"></i>
-                            <span>Pemasukan</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/" class='sidebar-link'>
-                            <i class="fa-solid fa-arrow-up"></i>
-                            <span>Pengeluaran</span>
+                    <li class="sidebar-item" id="pendapatan">
+                        <a href="{{ route('admin.incomes.index')}}" class='sidebar-link'>
+                            <i class="fa-solid fa-coins"></i>
+                            <span>Pendapatan</span>
                         </a>
                     </li>
                 @elseif (Auth::user()->role == 'operator')
                     <li class="sidebar-title">Keuangan</li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item" id="pendapatan">
                         <a href="/" class='sidebar-link'>
-                            <i class="fa-solid fa-arrow-down"></i>
-                            <span>Pemasukan</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/" class='sidebar-link'>
-                            <i class="fa-solid fa-arrow-up"></i>
-                            <span>Pengeluaran</span>
-                        </a>
-                    </li>
-                @endif
-
-                {{-- Jurnalistik --}}
-                @if (Auth::user()->role == 'admin')
-                    <li class="sidebar-title">Jurnalistik</li>
-                    <li class="sidebar-item">
-                        <a href="/" class='sidebar-link'>
-                            <i class="fa-solid fa-newspaper"></i>
-                            <span>&nbsp;Artikel</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a href="/" class='sidebar-link'>
-                            <i class="fa-solid fa-photo-film"></i>
-                            <span>Galeri</span>
-                        </a>
-                    </li>
-                @elseif (Auth::user()->role == 'operator')
-                    <li class="sidebar-title">Jurnalistik</li>
-                    <li class="sidebar-item">
-                        <a href="/" class='sidebar-link'>
-                            <i class="fa-solid fa-newspaper"></i>
-                            <span>&nbsp;Artikel</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a href="/" class='sidebar-link'>
-                            <i class="fa-solid fa-photo-film"></i>
-                            <span>Galeri</span>
+                            <i class="fa-solid fa-coins"></i>
+                            <span>Pendapatan</span>
                         </a>
                     </li>
                 @endif

@@ -125,6 +125,26 @@
                     @endif
                 </li>
 
+                <li class="sidebar-item" id="history">
+                    @if (Auth::user()->role == 'admin')
+                        <a href="{{ route('admin.orders.history') }}" class='sidebar-link'>
+                            <i class="fa-solid fa-history"></i>
+                            <span>Riwayat Pesanan</span>
+                        </a>
+                    @elseif(Auth::user()->role == 'operator')
+                        <a href="" class='sidebar-link'>
+                            <i class="fa-solid fa-history"></i>
+                            <span>Riwayat Pesanan</span>
+                        </a>
+                    @elseif(Auth::user()->role == 'user')
+                        {{-- With User ID --}}
+                        {{-- <a href="{{ route('user.orders.history', ['user' => Auth::user()->id]) }}" class='sidebar-link'>
+                            <i class="fa-solid fa-history"></i>
+                            <span>Riwayat Pesanan</span>
+                        </a> --}}
+                    @endif
+                </li>
+
 
                 {{-- Keuangan --}}
                 @if (Auth::user()->role == 'admin')

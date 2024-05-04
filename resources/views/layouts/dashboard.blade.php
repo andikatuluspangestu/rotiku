@@ -103,6 +103,9 @@
             } else if (title == 'Riwayat Pesanan') {
                 $('#history').addClass('active');
                 $('#dashboard').removeClass('active');
+            } else if (title == 'Pendapatan') {
+                $('#pendapatan').addClass('active');
+                $('#dashboard').removeClass('active');
             }
         });
     </script>

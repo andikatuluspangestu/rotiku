@@ -58,7 +58,8 @@ class UserOrderController extends Controller
             'total'           => $request->total,
             'accepted_status' => 'pending',
             'payment_status'  => 'unpaid',
-            'description'     => $request->description
+            'customer_notes'     => $request->customer_notes,
+            'admin_notes'        => NULL,
         ]);
 
         $id_user = auth()->id();
@@ -109,20 +110,15 @@ class UserOrderController extends Controller
     }
 
     // Completed Order
-    public function completed(string $user, Order $order)
+    public function completed(Request $request, $id)
     {
-        // Cek apakah order ada dan milik user
-        $user = auth()->user();
-        $order = Order::where('user_id', $user->id)->where('id', $order->id)->firstOrFail();
+        // Cek data pesanan berdasarkan ID Order 
+        $order = Order::where('id', $id)->first();
 
-        if ($order->user_id != auth()->id()) {
-            return redirect()->route('user.orders.index', $user->id)->with('error', 'Anda tidak memiliki akses ke halaman ini !');
-        } else {
-            $order->update([
-                'accepted_status' => 'completed'
-            ]);
+        $order->update([
+            'accepted_status' => 'accepted',
+        ]);
 
-            return redirect()->route('user.orders.index', $user->id)->with('success', 'Pesanan Berhasil Diselesaikan !');
-        }
+        return redirect()->back()->with('success', 'Pesanan berhasil diselesaikan.');
     }
 }

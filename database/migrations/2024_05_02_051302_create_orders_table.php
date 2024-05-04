@@ -28,7 +28,8 @@ return new class extends Migration
             $table->string('type')->nullable();      // Tipe Pesanan
             $table->integer('quantity');             // Jumlah Pesanan
             $table->decimal('total', 10, 0);         // Total Harga Pesanan
-            $table->text('description')->nullable(); // Deskripsi Pesanan
+            $table->text('customer_notes')->nullable(); // Catatan Pelanggan
+            $table->text('admin_notes')->nullable();    // Catatan Admin
 
             // Status Pesanan oleh Admin
             $table->enum('shipping_status', ['pending', 'processing', 'shipping','completed', 'declined'])->default('pending');

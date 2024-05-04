@@ -11,13 +11,13 @@
                 <div class="card p-2">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover" id="dataTable">
+                            <table class="table table-hover" id="dataTable">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>No</th>
                                         <th>Status</th>
                                         <th>Penerima</th>
-                                        <th>Alamat</th>
+                                        <th>ID Pesanan</th>
                                         <th>Total</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -28,7 +28,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
                                                 @if ($order->shipping_status == 'completed')
-                                                <span class="badge bg-success text-dark">Terkirim</span>
+                                                <span class="badge bg-success">Terkirim</span>
                                             @elseif ($order->shipping_status == 'shipping')
                                                 <span class="badge bg-warning text-dark">Sedang Dikirim</span>
                                             @elseif ($order->shipping_status == 'processing')
@@ -40,25 +40,25 @@
                                             @endif
                                             </td>
                                             <td>{{ $order->name }}</td>
-                                            <td>{{ $order->address }}</td>
+                                            <td>{{ $order->id }}</td>
                                             <td>
-                                                <span class="badge bg-primary">Rp {{ number_format($order->total) }}</span>
+                                                <span class="badge bg-primary mb-1">Rp {{ number_format($order->total) }}</span>
                                                 {{-- Badge Bayar --}}
                                                 @if ($order->payment_status == 'pending')
                                                     <span class="badge bg-warning text-dark">
                                                         Konfirmasi Pembayaran
                                                     </span>
-                                                @elseif ($order->payment_status == 'success')
-                                                    <span class="badge bg-success text-dark">Pembayaran Berhasil</span>
+                                                @elseif ($order->payment_status == 'paid')
+                                                    <span class="badge bg-success">Lunas</span>
                                                 @elseif ($order->payment_status == 'failed')
                                                     <span class="badge bg-danger">Pembayaran Gagal</span>
-                                                @else
-                                                    <span class="badge bg-secondary">Belum Dibayar</span>
+                                                @elseif ($order->payment_status == 'unpaid')
+                                                    <span class="badge bg-danger">Belum Dibayar</span>
                                                 @endif
                                             </td>
                                             <td>
                                                 <a href="{{ route('admin.orders.show', ['user' => $order->user_id, 'order' => $order->id]) }}"
-                                                    class="btn btn-sm btn-info">Detail</a>
+                                                    class="btn btn-sm btn-primary">Detail Pesanan</a>
 
                                                 @if ($order->shipping_status == 'shipping')
                                                     <form

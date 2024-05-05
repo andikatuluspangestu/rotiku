@@ -80,12 +80,12 @@ class AdminUserController extends Controller
     }
 
     // User Detail
-    public function detail($id)
+    public function show($id)
     {
         $title = 'Detail Pengguna';
         $user  = User::find($id);
 
-        return view('admin.user_detail', compact('title', 'user'));
+        return view('admin.users.pages.show', compact('title', 'user'));
     }
 
     // User Edit
@@ -94,7 +94,7 @@ class AdminUserController extends Controller
         $title = 'Edit Pengguna';
         $user  = User::find($id);
 
-        return view('admin.user_edit', compact('title', 'user'));
+        return view('admin.users.pages.edit', compact('title', 'user'));
     }
 
     // User Update
@@ -112,16 +112,17 @@ class AdminUserController extends Controller
         $user = User::find($id);
         $user->update($request->all());
 
-        return redirect()->route('admin.user')->with('success', 'Data pengguna berhasil diubah.');
+        // Kembali ke Form dengan Pesan Sukses
+        return redirect()->route('admin.users.edit', $id)->with('success', 'Data pengguna berhasil diubah.');
     }
 
     // User Delete
-    public function delete($id)
+    public function destroy($id)
     {
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->route('admin.user')->with('success', 'Data pengguna berhasil dihapus.');
+        return redirect()->route('admin.adminList')->with('success', 'Data pengguna berhasil dihapus.');
     }
 
 }

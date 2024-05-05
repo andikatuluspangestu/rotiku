@@ -106,6 +106,15 @@
             } else if (title == 'Pendapatan') {
                 $('#pendapatan').addClass('active');
                 $('#dashboard').removeClass('active');
+            } else if (title == 'Data Administrator') {
+                $('#users').addClass('active');
+                $('#dashboard').removeClass('active');
+            } else if (title == 'Data Pelanggan') {
+                $('#pelanggan').addClass('active');
+                $('#dashboard').removeClass('active');
+            } else if (title == 'Data Operator') {
+                $('#operator').addClass('active');
+                $('#dashboard').removeClass('active');
             }
         });
     </script>

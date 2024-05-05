@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminMoneyController;
+use App\Http\Controllers\Admin\AdminUserController;
 
 // Operator Controllers
 use App\Http\Controllers\Operator\OperatorController;
@@ -46,6 +47,18 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // income resource
     Route::resource('incomes', AdminMoneyController::class);
+
+    // User Resource
+    Route::resource('users', AdminUserController::class);
+
+    // Admin User List
+    Route::get('/admin-list', [AdminUserController::class, 'admin'])->name('adminList');
+
+    // Operator User List
+    Route::get('/operator-list', [AdminUserController::class, 'operator'])->name('operatorList');
+
+    // User List
+    Route::get('/user-list', [AdminUserController::class, 'user'])->name('userList');
 
 });
 

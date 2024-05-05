@@ -21,7 +21,7 @@ use App\Http\Controllers\Operator\OperatorCategoryController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProductController;
 use App\Http\Controllers\User\UserOrderController;
-
+use App\Http\Controllers\User\UserAspirationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -90,7 +90,6 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
 // User Route
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
-
     Route::get('/user/products', [UserProductController::class, 'index'])->name('user.products.index');
     Route::get('/user/products/{product}', [UserProductController::class, 'show'])->name('user.products.show');
 
@@ -106,6 +105,9 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     // updateAccepted
     Route::get('/user/orders/{order}/updateAccepted', [UserOrderController::class, 'updateAccepted'])->name('user.orders.updateAccepted');
 
+    // Aspiration Resource
+    Route::resource('aspirations', UserAspirationController::class);
+    
 });
 
 require __DIR__ . '/auth.php';

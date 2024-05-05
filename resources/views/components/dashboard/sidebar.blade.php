@@ -158,7 +158,7 @@
                 @elseif (Auth::user()->role == 'operator')
                     <li class="sidebar-title">Keuangan</li>
                     <li class="sidebar-item" id="pendapatan">
-                        <a href="/" class='sidebar-link'>
+                        <a href="{{ route('operator.incomes.index') }}" class='sidebar-link'>
                             <i class="fa-solid fa-coins"></i>
                             <span>Pendapatan</span>
                         </a>

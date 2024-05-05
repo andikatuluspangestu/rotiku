@@ -16,6 +16,8 @@ use App\Http\Controllers\Operator\OperatorController;
 use App\Http\Controllers\Operator\OperatorOrderController;
 use App\Http\Controllers\Operator\OperatorProductController;
 use App\Http\Controllers\Operator\OperatorCategoryController;
+use App\Http\Controllers\Operator\OperatorAspirationController;
+use App\Http\Controllers\Operator\OperatorMoneyController;
 
 // User Controllers
 use App\Http\Controllers\User\UserController;
@@ -85,6 +87,12 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
 
     // updateAdminNotes
     Route::patch('/orders/{order}/updateAdminNotes', [OperatorOrderController::class, 'updateAdminNotes'])->name('orders.updateAdminNotes');
+
+    // Aspiration Resource
+    Route::resource('aspirations', OperatorAspirationController::class);
+
+    // income resource
+    Route::resource('incomes', OperatorMoneyController::class);
 });
 
 // User Route

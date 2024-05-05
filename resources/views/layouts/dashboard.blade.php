@@ -115,6 +115,12 @@
             } else if (title == 'Data Operator') {
                 $('#operator').addClass('active');
                 $('#dashboard').removeClass('active');
+            } else if (title == 'Keluhan Pelanggan') {
+                $('#aspirasi').addClass('active');
+                $('#dashboard').removeClass('active');
+            } else if (title == 'Detail Keluhan') {
+                $('#aspirasi').addClass('active');
+                $('#dashboard').removeClass('active');
             }
         });
     </script>

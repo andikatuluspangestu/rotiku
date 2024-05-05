@@ -165,10 +165,9 @@
                     </li>
                 @endif
 
+                @if (Auth::user()->role == 'admin')
                 {{-- Pengguna --}}
                 <li class="sidebar-title">Pengguna</li>
-
-                @if (Auth::user()->role == 'admin')
                     {{-- Operator --}}
                     <li class="sidebar-item" id="users">
                         <a href="{{ route('admin.adminList') }}" class='sidebar-link'>
@@ -194,19 +193,42 @@
 
                 {{-- Aspirasi --}}
                 <li class="sidebar-title">Lainnya</li>
-                <li class="sidebar-item">
-                    <a href="/" class='sidebar-link'>
-                        <i class="fa-solid fa-message"></i>
-                        <span>&nbsp;Aspirasi</span>
-                    </a>
-                </li>
+            
+                @if (Auth::user()->role == 'admin')
+                    {{-- Aspirasi --}}
+                    <li class="sidebar-item">
+                        <a href="{{ route('admin.aspirations.index') }}" class='sidebar-link'>
+                            <i class="fa-solid fa-comment"></i>
+                            <span>&nbsp;Aspirasi</span>
+                        </a>
+                    </li>
+                @elseif (Auth::user()->role == 'operator')
+                    {{-- Aspirasi --}}
+                    <li class="sidebar-item">
+                        <a href="{{ route('operator.aspirations.index') }}" class='sidebar-link'>
+                            <i class="fa-solid fa-comment"></i>
+                            <span>&nbsp;Aspirasi</span>
+                        </a>
+                    </li>
+                @elseif (Auth::user()->role == 'user')
+                    {{-- Aspirasi --}}
+                    <li class="sidebar-item">
+                        <a href="" class='sidebar-link'>
+                            <i class="fa-solid fa-comment"></i>
+                            <span>&nbsp;Keluhan</span>
+                        </a>
+                    </li>
+                @endif
 
-                <li class="sidebar-item">
-                    <a href="/" class='sidebar-link'>
-                        <i class="fa-solid fa-cog"></i>
-                        <span>&nbsp;Pengaturan</span>
-                    </a>
-                </li>
+                @if (Auth::user()->role == 'admin')
+                    {{-- Pengaturan --}}
+                    <li class="sidebar-item">
+                        <a href="{{ route('admin.settings') }}" class='sidebar-link'>
+                            <i class="fa-solid fa-cog"></i>
+                            <span>&nbsp;Pengaturan</span>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="sidebar-item">
                     <a href="/" class='sidebar-link'>

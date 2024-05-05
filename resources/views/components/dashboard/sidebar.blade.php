@@ -8,9 +8,9 @@
                     <i class="fa-solid fa-cake-candles ms-2"></i>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20"
-                        height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                        role="img" class="iconify iconify--system-uicons" width="20" height="20"
+                        preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
                         <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path
@@ -86,7 +86,7 @@
                 @endif
 
                 <li class="sidebar-item" id="product">
-                    @if (Auth::user()->role == 'admin') 
+                    @if (Auth::user()->role == 'admin')
                         <a href="{{ route('admin.products.index') }}" class='sidebar-link'>
                             <i class="fa-solid fa-box"></i>
                             <span>Produk</span>
@@ -150,7 +150,7 @@
                 @if (Auth::user()->role == 'admin')
                     <li class="sidebar-title">Keuangan</li>
                     <li class="sidebar-item" id="pendapatan">
-                        <a href="{{ route('admin.incomes.index')}}" class='sidebar-link'>
+                        <a href="{{ route('admin.incomes.index') }}" class='sidebar-link'>
                             <i class="fa-solid fa-coins"></i>
                             <span>Pendapatan</span>
                         </a>
@@ -165,6 +165,33 @@
                     </li>
                 @endif
 
+                {{-- Pengguna --}}
+                <li class="sidebar-title">Pengguna</li>
+
+                @if (Auth::user()->role == 'admin')
+                    {{-- Operator --}}
+                    <li class="sidebar-item" id="users">
+                        <a href="{{ route('admin.adminList') }}" class='sidebar-link'>
+                            <i class="fa-solid fa-user-tie"></i>
+                            <span>&nbsp;&nbsp;Administrator</span>
+                        </a>
+                    </li>
+                    {{-- Admin --}}
+                    <li class="sidebar-item" id="operator">
+                        <a href="{{ route('admin.operatorList') }}" class='sidebar-link'>
+                            <i class="fa-solid fa-user-group"></i>
+                            <span>&nbsp;Operator</span>
+                        </a>
+                    </li>
+                    {{-- Pelanggan --}}
+                    <li class="sidebar-item" id="pelanggan">
+                        <a href="{{ route('admin.userList') }}" class='sidebar-link'>
+                            <i class="fa-solid fa-users"></i>
+                            <span>&nbsp;Pelanggan</span>
+                        </a>
+                    </li>
+                @endif
+
                 {{-- Aspirasi --}}
                 <li class="sidebar-title">Lainnya</li>
                 <li class="sidebar-item">
@@ -173,18 +200,6 @@
                         <span>&nbsp;Aspirasi</span>
                     </a>
                 </li>
-
-                {{-- Konfigurasi --}}
-                <li class="sidebar-title">Konfigurasi</li>
-
-                @if (Auth::user()->role == 'admin')
-                    <li class="sidebar-item">
-                        <a href="/" class='sidebar-link'>
-                            <i class="fa-solid fa-users"></i>
-                            <span>&nbsp;Pengguna</span>
-                        </a>
-                    </li>
-                @endif
 
                 <li class="sidebar-item">
                     <a href="/" class='sidebar-link'>
@@ -199,12 +214,13 @@
                         <span>&nbsp;Kunjungi Website</span>
                     </a>
                 </li>
-                
+
                 <hr>
 
                 {{-- Auth --}}
                 <li class="sidebar-item">
-                    <a href="{{ route('logout') }}" class='sidebar-link' onclick="event.preventDefault();
+                    <a href="{{ route('logout') }}" class='sidebar-link'
+                        onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
                         <i class="fa-solid fa-sign-out"></i>
                         <span>&nbsp;Keluar</span>

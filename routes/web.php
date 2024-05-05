@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminMoneyController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminAspirationController;
 
 // Operator Controllers
 use App\Http\Controllers\Operator\OperatorController;
@@ -59,6 +60,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // User List
     Route::get('/user-list', [AdminUserController::class, 'user'])->name('userList');
+
+    // Aspirasi Resource
+    Route::resource('aspirations', AdminAspirationController::class);
 
 });
 

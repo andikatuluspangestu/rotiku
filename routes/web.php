@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminMoneyController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminAspirationController;
+use App\Http\Controllers\Admin\AdminSettingController;
 
 // Operator Controllers
 use App\Http\Controllers\Operator\OperatorController;
@@ -65,6 +66,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // Aspirasi Resource
     Route::resource('aspirations', AdminAspirationController::class);
+
+    // Settings Resource
+    Route::resource('settings', AdminSettingController::class);
 
 });
 

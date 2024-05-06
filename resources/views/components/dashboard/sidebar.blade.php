@@ -207,7 +207,7 @@
                     <li class="sidebar-item" id="aspirasi">
                         <a href="{{ route('operator.aspirations.index') }}" class='sidebar-link'>
                             <i class="fa-solid fa-comment"></i>
-                            <span>&nbsp;Aspirasi</span>
+                            <span>&nbsp;Keluhan</span>
                         </a>
                     </li>
                 @elseif (Auth::user()->role == 'user')
@@ -222,8 +222,8 @@
 
                 @if (Auth::user()->role == 'admin')
                     {{-- Pengaturan --}}
-                    <li class="sidebar-item">
-                        <a href="" class='sidebar-link'>
+                    <li class="sidebar-item" id="settings">
+                        <a href="{{ route('admin.settings.index') }}" class='sidebar-link'>
                             <i class="fa-solid fa-cog"></i>
                             <span>&nbsp;Pengaturan</span>
                         </a>

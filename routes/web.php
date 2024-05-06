@@ -27,7 +27,7 @@ use App\Http\Controllers\User\UserOrderController;
 use App\Http\Controllers\User\UserAspirationController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.index');
 });
 
 // Admin Route

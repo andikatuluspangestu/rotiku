@@ -10,12 +10,12 @@
     </title>
 
     <!-- Meta Open Graph -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('home/img/favicons/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('home/img/favicons/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('home/img/favicons/favicon-16x16.png') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('home/img/favicons/favicon.ico') }}">
-    <link rel="manifest" href="{{ asset('home/img/favicons/manifest.json') }}">
-    <meta name="msapplication-TileImage" content="{{ asset('home/img/favicons/mstile-150x150.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('backend/static/images/logo/favicon.svg') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('backend/static/images/logo/favicon.svg') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/static/images/logo/favicon.svg') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend/static/images/logo/favicon.svg') }}">
+    <link rel="manifest" href="{{ asset('backend/img/favicons/manifest.json') }}">
+    <meta name="msapplication-TileImage" content="{{ asset('backend/static/images/logo/favicon.svg') }}">
     <meta name="theme-color" content="#ffffff">
 
     <!-- Meta Description -->
@@ -30,7 +30,7 @@
     <link href="{{ asset('backend/compiled/css/custom.css') }}" rel="stylesheet">
 
     {{-- Font Awesome --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('backend/extensions/@fortawesome/fontawesome-free/css/all.min.css')}}">
 
     {{-- CDN DataTable --}}
     <link rel="stylesheet" href="{{ asset('backend/extensions/datatables.net-bs5/css/dataTables.bootstrap5.css')}}">

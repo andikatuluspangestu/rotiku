@@ -121,6 +121,9 @@
             } else if (title == 'Detail Keluhan') {
                 $('#aspirasi').addClass('active');
                 $('#dashboard').removeClass('active');
+            } else if (title == 'Pengaturan') {
+                $('#settings').addClass('active');
+                $('#dashboard').removeClass('active');
             }
         });
     </script>

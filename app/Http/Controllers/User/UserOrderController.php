@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -75,10 +76,13 @@ class UserOrderController extends Controller
         // Cek apakah order milik user
         $order = Order::where('user_id', $user)->where('id', $order)->firstOrFail();
 
+        // Ambil Data Tata Cara Pembayaran di Tabel Settings
+        $settings = Setting::all()->first();
+
         if ($order->user_id != auth()->id()) {
             return redirect()->route('user.orders.index', $user)->with('error', 'Anda tidak memiliki akses ke halaman ini !');
         } else {
-            return view('user.orders.show', compact('title', 'order'));
+            return view('user.orders.show', compact('title', 'order', 'settings'));
         }
     }
 

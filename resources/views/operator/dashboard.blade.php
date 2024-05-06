@@ -9,7 +9,7 @@
             <div class="col-12 col-lg-9">
                 <div class="row">
                     <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card shadow-sm">
+                        <div class="card bg-primary shadow-sm">
                             <div class="card-body px-4 py-4-5">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -18,7 +18,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="font-extrabold mb-2">22</h6>
+                                        <h6 class="font-extrabold mb-2">
+                                            {{ $products->count() }}
+                                        </h6>
                                         <h6 class="text-muted font-semibold">Produk</h6>
                                     </div>
                                 </div>
@@ -26,7 +28,7 @@
                         </div>
                     </div>
                     <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card shadow-sm">
+                        <div class="card bg-secondary shadow-sm">
                             <div class="card-body px-4 py-4-5">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -35,7 +37,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="font-extrabold mb-2">12</h6>
+                                        <h6 class="font-extrabold mb-2">
+                                            {{ $categories->count() }}
+                                        </h6>
                                         <h6 class="text-muted font-semibold">Katalog</h6>
                                     </div>
                                 </div>
@@ -43,7 +47,7 @@
                         </div>
                     </div>
                     <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card shadow-sm">
+                        <div class="card bg-success shadow-sm">
                             <div class="card-body px-4 py-4-5">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -52,7 +56,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="font-extrabold mb-2">10</h6>
+                                        <h6 class="font-extrabold mb-2">
+                                            {{ $orders->count() }}
+                                        </h6>
                                         <h6 class="text-muted font-semibold">Pesanan</h6>
                                     </div>
                                 </div>
@@ -60,7 +66,7 @@
                         </div>
                     </div>
                     <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card shadow-sm">
+                        <div class="card bg-danger shadow-sm">
                             <div class="card-body px-4 py-4-5">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -69,8 +75,10 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="font-extrabold mb-2">17</h6>
-                                        <h6 class="text-muted font-semibold">Ulasan</h6>
+                                        <h6 class="font-extrabold mb-2">
+                                            {{ $orders->sum('quantity') }}
+                                        </h6>
+                                        <h6 class="text-muted font-semibold">Produk Terjual</h6>
                                     </div>
                                 </div>
                             </div>
@@ -78,19 +86,75 @@
                     </div>
                 </div>
 
-                {{-- Grafik Keuangan --}}
                 <div class="row">
-                    <div class="col-12">
+                    {{-- Grafik Penjualan --}}
+                    <div class="col-12 col-md-6">
                         <div class="card shadow-sm">
                             <div class="card-header">
-                                <h4>Keuangan</h4>
+                                <h4>
+                                    <i class="fa-solid fa-chart-line"></i> &nbsp;
+                                    Grafik Penjualan
+                                </h4>
                             </div>
                             <div class="card-body">
-                                <canvas id="myChart" width="400" height="150"></canvas>
+                                <canvas id="myChart" width="400" height="235"></canvas>
                             </div>
                         </div>
                     </div>
+
+                    {{-- Tabel Pesanan Terbaru --}}
+                    <div class="col-12 col-md-6 mt-4 mt-md-0">
+                        <div class="card shadow-sm">
+                            <div class="card-header">
+                                <h4>
+                                    <i class="fa-solid fa-bell"></i> &nbsp;
+                                    Pesanan Terbaru
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>ID Order</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($latestOrders as $order)
+                                                <tr>
+                                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                                    <td>
+                                                        <small>
+                                                            #{{ $order->id }}
+                                                        </small>
+                                                    </td>
+                                                    <td>
+                                                        @if ($order->shipping_status == 'pending')
+                                                            <span class="badge bg-warning text-dark">Pending</span>
+                                                        @elseif ($order->shipping_status == 'processing')
+                                                            <span class="badge bg-info text-dark">Dikemas</span>
+                                                        @elseif ($order->shipping_status == 'completed')
+                                                            <span class="badge bg-success text-white">Selesai</span>
+                                                        @elseif ($order->shipping_status == 'shipping')
+                                                            <span class="badge bg-primary text-white">Dikirim</span>
+                                                        @elseif ($order->shipping_status == 'cancelled')
+                                                            <span class="badge bg-danger text-white">Cancelled</span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <a href="{{ route('operator.orders.index') }}" class="btn btn-primary mt-1">Lihat Semua</a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
             <div class="col-12 col-lg-3">
                 {{-- Status Profile Card --}}
@@ -98,7 +162,8 @@
                     <div class="card-body py-4 px-4">
                         <div class="d-flex align-items-center">
                             <div class="avatar avatar-xl">
-                                <img src="https://cdn-icons-png.flaticon.com/512/11498/11498793.png" alt="avatar" class="avatar-img rounded-circle">
+                                <img src="https://cdn-icons-png.flaticon.com/512/11498/11498793.png" alt="avatar"
+                                    class="avatar-img rounded-circle">
                             </div>
                             <div class="ms-3 name">
                                 <h5 class="font-bold">Jenny</h5>
@@ -107,12 +172,12 @@
                         </div>
                     </div>
                     <div class="desc pb-4 pt-2 px-4">
-                        You are login as Operator <br> 
-                        {{-- Logout Form --}}
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-sm mt-2 btn-danger">Logout</button>
-                        </form>
+                        <h6 class="font-bold">
+                            {{-- Role --}}
+                            Operator
+                        </h6>
+                        <hr>
+                        <a href="#">Edit Profile</a>
                     </div>
                 </div>
 
@@ -125,61 +190,79 @@
                                 <i class="iconly-boldWallet"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="font-bold">Pemasukan</h6>
-                                <h6 class="text-muted mb-0">Rp. 1.000.000</h6>
+                                <h6 class="font-bold">Pendapatan</h6>
+                                <h6 class="text-muted mb-0">
+                                    Rp. {{ number_format($totalIncome) }}
+                                </h6>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {{-- Card Detail Keuangan (pengeluaran) --}}
+                {{-- Card Jumlah Pelanggan --}}
                 <div class="card shadow-sm">
                     <div class="card-body py-4 px-4">
                         <div class="d-flex align-items-center">
-                            <div class="stats-icon green">
-                                {{-- Arrow Up Iconly --}}
-                                <i class="iconly-boldWallet"></i>
+                            <div class="stats-icon purple">
+                                {{-- User Iconly --}}
+                                <i class="iconly-boldUser"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="font-bold">Pengeluaran</h6>
-                                <h6 class="text-muted mb-0">Rp. 500.000</h6>
+                                <h6 class="font-bold">Pelanggan</h6>
+                                <h6 class="text-muted mb-0">
+                                    {{ $customers }}
+                                </h6>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
         {{-- Chart.Js CDN --}}
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        {{-- Chart.Js Dummy --}}
+        {{-- Chart.Js Penjualan --}}
         <script>
             var ctx = document.getElementById('myChart').getContext('2d');
+
+            // Menghitung jumlah bulan antara Mei dan bulan terakhir dalam data
+            var totalMonths = 12 - {{ $ordersPerMonth[0]->month }} + 5; // 5 adalah nomor bulan untuk Mei
+
+            // Membuat array kosong untuk label bulan dan data grafik
+            var labels = [];
+            var data = [];
+
+            // Menambahkan label bulan dan data grafik untuk bulan-bulan sebelum Mei dengan nilai nol
+            for (var i = 0; i < {{ $ordersPerMonth[0]->month }} - 1; i++) {
+                labels.push('');
+                data.push(0);
+            }
+
+            // Menambahkan label bulan dan data grafik untuk bulan Mei hingga bulan terakhir dalam data
+            @foreach ($ordersPerMonth as $order)
+                labels.push('{{ date('M', mktime(0, 0, 0, $order->month, 1)) }}');
+                data.push({{ $order->total }});
+            @endforeach
+
+            // Mengganti label bulan menjadi nama bulan yang sesuai
+            for (var i = 0; i < labels.length; i++) {
+                if (labels[i] === '') {
+                    labels[i] = 'May'; // Mengganti label bulan kosong dengan Mei
+                }
+            }
+
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    labels: labels,
                     datasets: [{
-                        label: 'Pemasukan',
-                        data: [12, 19, 3, 5, 2, 3, 5, 7, 8, 9, 10, 11],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                        ],
-                        borderWidth: 1
-                    }, {
-                        label: 'Pengeluaran',
-                        data: [1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1],
-                        backgroundColor: [
-                            'rgba(54, 162, 235, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgba(54, 162, 235, 1)',
-                        ],
-                        borderWidth: 1
+                        label: 'Orders per Month',
+                        data: data,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
                     }]
                 },
                 options: {

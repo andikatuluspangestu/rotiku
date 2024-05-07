@@ -56,7 +56,9 @@
     <script src="{{ asset('backend/compiled/js/app.js') }}"></script>
     <script src="{{ asset('backend/static/js/components/dark.js') }}"></script>
     <script src="{{ asset('backend/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-    <script src="{{ asset('backend/extensions/@fortawesome/fontawesome-free/js/all.min.js') }}"></script>
+    
+    {{-- CDN FontAwesome --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     {{-- CDN DataTable --}}
     <script src="{{ asset('backend/extensions/jquery/jquery.js') }}"></script>

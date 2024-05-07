@@ -26,9 +26,11 @@ use App\Http\Controllers\User\UserProductController;
 use App\Http\Controllers\User\UserOrderController;
 use App\Http\Controllers\User\UserAspirationController;
 
-Route::get('/', function () {
-    return view('home.index');
-});
+// Home Controller
+use App\Http\Controllers\HomeController;
+
+// Home Route
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Admin Route
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {

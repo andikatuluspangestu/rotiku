@@ -15,6 +15,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Nomor Pesanan</th>
                                         <th>Nama Penerima</th>
                                         <th>Alamat</th>
                                         <th>Status Pengiriman</th>
@@ -23,19 +24,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($orders as $order)
+                                    @foreach ($orders as $order)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $order->id }}</td>
                                             <td>{{ $order->name }}</td>
                                             <td>{{ $order->address }}</td>
                                             <td>
-                                                @if ($order->shipping_status == 'pending')
-                                                    <span class="badge bg-warning text-dark">Menunggu Konfirmasi</span>
+                                                @if ($order->shipping_status == 'pending' && $order->payment_status == 'unpaid')
+                                                    <span class="badge bg-warning text-dark">Menunggu Pembayaran</span>
+                                                @elseif ($order->shipping_status == 'pending' && $order->payment_status == 'paid')
+                                                    <span class="badge bg-primary">Menunggu Konfirmasi Admin</span>
                                                 @elseif ($order->shipping_status == 'processing')
                                                     <span class="badge bg-primary">Dikemas</span>
                                                 @elseif ($order->shipping_status == 'shipping')
                                                     <span class="badge bg-secondary">Sedang Dikirim</span>
-                                                @elseif ($order->shipping_status == 'completed')
+                                                @elseif ($order->accepted_status == 'accepted')
                                                     <span class="badge bg-success">Diterima</span>
                                                 @endif
                                             </td>
@@ -45,13 +49,7 @@
                                                     class="btn btn-sm btn-info">Detail</a>
                                             </td>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="6" class="text-center">Tidak ada data</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-
+                                    @endforeach
                             </table>
                         </div>
                     </div>

@@ -2,12 +2,22 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        <div class="grid grid-cols-2 gap-4">
+            <!-- Name -->
+            <div>
+                <x-input-label for="name" :value="__('Nama Lengkap')" />
+                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            </div>
+        
+            {{-- Username --}}
+            <div>
+                <x-input-label for="username" :value="__('Username')" />
+                <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autocomplete="username" />
+                <x-input-error :messages="$errors->get('username')" class="mt-2" />
+            </div>
         </div>
+        
 
         <!-- Email Address -->
         <div class="mt-4">
@@ -15,6 +25,16 @@
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
+
+        {{-- Phone --}}
+        <div class="mt-4">
+            <x-input-label for="phone" :value="__('Phone')" />
+            <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autocomplete="phone" />
+            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+        </div>
+
+        {{-- Hidden Role --}}
+        <input type="hidden" name="role" value="user">
 
         <!-- Password -->
         <div class="mt-4">

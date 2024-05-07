@@ -2,6 +2,14 @@
 
 > Rotiku adalah sebuah aplikasi berbasis web yang digunakan untuk mempermudah pemesanan roti secara online. Aplikasi ini dibuat menggunakan framework Laravel 10 dan MySQL sebagai database.
 
+<table>
+    <tr>
+        <td><img src="https://github.com/andikatuluspangestu/rotiku/assets/62005221/f8cc070e-5508-4a7e-b877-cd2d7dc051fc" alt="Image 1"></td>
+        <td><img src="https://github.com/andikatuluspangestu/rotiku/assets/62005221/d6746f68-a28c-44b5-a4c8-cab8ab45d249" alt="Image 2"></td>
+        <td><img src="https://github.com/andikatuluspangestu/rotiku/assets/62005221/bbe7db4a-fff4-4544-979d-ab84c923eec4" alt="Image 3"></td>
+    </tr>
+</table>
+
 ## Fitur-fitur
 - Pemesanan roti
 - Melihat daftar roti

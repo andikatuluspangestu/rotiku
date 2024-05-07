@@ -122,7 +122,9 @@
                                     class="avatar-img rounded-circle">
                             </div>
                             <div class="ms-3 name">
-                                <h5 class="font-bold">Renata Angelin</h5>
+                                <h5 class="font-bold">
+                                    {{ Auth::user()->name }}
+                                </h5>
                                 <h6 class="text-muted mb-0">
                                     {{-- Edit Profil --}}
                                     <a href="/">Edit Profil</a>
@@ -165,7 +167,6 @@
                                         @endif
                                     @endforeach
                                 </h6>
-
                             </div>
                         </div>
                     </div>

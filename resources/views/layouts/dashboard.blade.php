@@ -30,11 +30,11 @@
     <link href="{{ asset('backend/compiled/css/custom.css') }}" rel="stylesheet">
 
     {{-- Font Awesome --}}
-    <link rel="stylesheet" href="{{ asset('backend/extensions/@fortawesome/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('backend/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 
     {{-- CDN DataTable --}}
-    <link rel="stylesheet" href="{{ asset('backend/extensions/datatables.net-bs5/css/dataTables.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{ asset('backend/compiled/css/table-datatable-jquery.css')}}">
+    <link rel="stylesheet" href="{{ asset('backend/extensions/datatables.net-bs5/css/dataTables.bootstrap5.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/compiled/css/table-datatable-jquery.css') }}">
 
 </head>
 
@@ -56,15 +56,12 @@
     <script src="{{ asset('backend/compiled/js/app.js') }}"></script>
     <script src="{{ asset('backend/static/js/components/dark.js') }}"></script>
     <script src="{{ asset('backend/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
-
-    {{-- CDN SweetAlert2 --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('backend/extensions/@fortawesome/fontawesome-free/js/all.min.js') }}"></script>
 
     {{-- CDN DataTable --}}
-    <script src="{{ asset('backend/extensions/jquery/jquery.js')}}"></script>
-    <script src="{{ asset('backend/extensions/datatables.net/js/jquery.dataTables.js')}}"></script>
-    <script src="{{ asset('backend/extensions/datatables.net-bs5/js/dataTables.bootstrap5.js')}}"></script>
+    <script src="{{ asset('backend/extensions/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('backend/extensions/datatables.net/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('backend/extensions/datatables.net-bs5/js/dataTables.bootstrap5.js') }}"></script>
 
     {{-- Custom JS --}}
     <script src="{{ asset('backend/static/js/custom.js') }}"></script>
@@ -76,57 +73,42 @@
         });
     </script>
 
-
     <script>
-        // Active Sidebar
         $(document).ready(function() {
-            
+            // Objek untuk memetakan judul halaman ke ID elemen yang sesuai
+            var titleToId = {
+                'Dashboard': '#dashboard',
+                'Katalog Produk': '#catalog',
+                'Produk': '#product',
+                'Detail Produk': '#product',
+                'Detail Pesanan': '#pesanan',
+                'Daftar Pesanan': '#pesanan',
+                'Riwayat Pesanan': '#history',
+                'Pendapatan': '#pendapatan',
+                'Data Administrator': '#users',
+                'Data Pelanggan': '#pelanggan',
+                'Data Operator': '#operator',
+                'Keluhan Pelanggan': '#aspirasi',
+                'Detail Keluhan': '#aspirasi',
+                'Pengaturan': '#settings'
+            };
+
             var title = "{{ $title }}";
 
-            if (title == 'Dashboard') {
-                $('#dashboard').addClass('active');
-            } else if (title == 'Katalog Produk') {
-                $('#catalog').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Produk') {
-                $('#product').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Detail Produk') {
-                $('#product').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Detail Pesanan') {
-                $('#pesanan').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Daftar Pesanan') {
-                $('#pesanan').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Riwayat Pesanan') {
-                $('#history').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Pendapatan') {
-                $('#pendapatan').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Data Administrator') {
-                $('#users').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Data Pelanggan') {
-                $('#pelanggan').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Data Operator') {
-                $('#operator').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Keluhan Pelanggan') {
-                $('#aspirasi').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Detail Keluhan') {
-                $('#aspirasi').addClass('active');
-                $('#dashboard').removeClass('active');
-            } else if (title == 'Pengaturan') {
-                $('#settings').addClass('active');
-                $('#dashboard').removeClass('active');
+            // Hapus kelas 'active' dari semua elemen
+            $('.sidebar-menu li').removeClass('active');
+
+            // Tambahkan kelas 'active' ke elemen yang sesuai dengan judul halaman
+            var correspondingId = titleToId[title];
+            if (correspondingId) {
+                $(correspondingId).addClass('active');
+            } else {
+                // Tambahkan penanganan jika judul halaman tidak ditemukan dalam objek
+                console.error('ID elemen tidak ditemukan untuk judul halaman:', title);
             }
         });
     </script>
+
 
 </body>
 

@@ -166,8 +166,13 @@
                                     class="avatar-img rounded-circle">
                             </div>
                             <div class="ms-3 name">
-                                <h5 class="font-bold">Jenny</h5>
-                                <h6 class="text-muted mb-0">@jenny</h6>
+                                <h5 class="font-bold">
+                                    {{-- Name --}}
+                                    {{ Auth::user()->name }}
+                                </h5>
+                                <h6 class="text-muted mb-0">
+                                    {{ Auth::user()->username }}
+                                </h6>
                             </div>
                         </div>
                     </div>
@@ -228,17 +233,26 @@
             var ctx = document.getElementById('myChart').getContext('2d');
 
             // Menghitung jumlah bulan antara Mei dan bulan terakhir dalam data
-            var totalMonths = 12 - {{ $ordersPerMonth[0]->month }} + 5; // 5 adalah nomor bulan untuk Mei
+            @if (isset($ordersPerMonth[0]->month))
+                var totalMonths = 12 - {{ $ordersPerMonth[0]->month }} + 5;
+            @else
+                var totalMonths = 12;
+            @endif
+
 
             // Membuat array kosong untuk label bulan dan data grafik
             var labels = [];
             var data = [];
 
             // Menambahkan label bulan dan data grafik untuk bulan-bulan sebelum Mei dengan nilai nol
-            for (var i = 0; i < {{ $ordersPerMonth[0]->month }} - 1; i++) {
+            @php
+                $month = isset($ordersPerMonth[0]->month) ? $ordersPerMonth[0]->month : 0;
+            @endphp
+
+            @for ($i = 0; $i < $month - 1; $i++)
                 labels.push('');
                 data.push(0);
-            }
+            @endfor
 
             // Menambahkan label bulan dan data grafik untuk bulan Mei hingga bulan terakhir dalam data
             @foreach ($ordersPerMonth as $order)

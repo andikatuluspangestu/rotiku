@@ -93,16 +93,12 @@
                                             @if ($order->accepted_status == 'accepted')
                                                 <span class="badge bg-warning text-dark">Diterima</span>
                                             @elseif ($order->shipping_status == 'shipping')
-                                                @if ($order->accepted_status == 'pending' && $order->payment_status == 'paid')
-                                                <form
-                                                    action="{{ route('user.orders.completed', ['user' => Auth::user()->id, 'order' => $order->id]) }}"
-                                                    method="POST">
+                                                <form action="{{ route('user.orders.completed', ['user' => Auth::user()->id, 'order' => $order->id]) }}" method="POST">
                                                     @csrf
                                                     @method('PATCH')
                                                     <input type="hidden" name="accepted_status" value="completed">
                                                     <button type="submit" class="btn btn-sm btn-success">Konfirmasi Diterima</button>
                                                 </form>
-                                                @endif
                                             @elseif ($order->accepted_status == 'declined')
                                                 <span class="badge bg-danger">Dibatalkan</span>
                                             @elseif ($order->accepted_status == 'pending')

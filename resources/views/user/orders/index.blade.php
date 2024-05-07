@@ -33,7 +33,7 @@
                                             <td>
                                                 @if ($order->shipping_status == 'pending' && $order->payment_status == 'unpaid')
                                                     <span class="badge bg-warning text-dark">Menunggu Pembayaran</span>
-                                                @elseif ($order->shipping_status == 'pending' && $order->payment_status == 'paid')
+                                                @elseif ($order->shipping_status == 'pending' && $order->payment_status == 'pending')
                                                     <span class="badge bg-primary">Menunggu Konfirmasi Admin</span>
                                                 @elseif ($order->shipping_status == 'processing')
                                                     <span class="badge bg-primary">Dikemas</span>

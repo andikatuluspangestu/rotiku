@@ -87,23 +87,8 @@
                 </div>
 
                 <div class="row">
-                    {{-- Grafik Penjualan --}}
-                    <div class="col-12 col-md-6">
-                        <div class="card shadow-sm">
-                            <div class="card-header">
-                                <h4>
-                                    <i class="fa-solid fa-chart-line"></i> &nbsp;
-                                    Grafik Penjualan
-                                </h4>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="myChart" width="400" height="235"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
                     {{-- Tabel Pesanan Terbaru --}}
-                    <div class="col-12 col-md-6 mt-4 mt-md-0">
+                    <div class="col-12 col-md-12 mt-4 mt-md-0">
                         <div class="card shadow-sm">
                             <div class="card-header">
                                 <h4>
@@ -224,70 +209,5 @@
 
             </div>
         </section>
-
-        {{-- Chart.Js CDN --}}
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-        {{-- Chart.Js Penjualan --}}
-        <script>
-            var ctx = document.getElementById('myChart').getContext('2d');
-
-            // Menghitung jumlah bulan antara Mei dan bulan terakhir dalam data
-            @if (isset($ordersPerMonth[0]->month))
-                var totalMonths = 12 - {{ $ordersPerMonth[0]->month }} + 5;
-            @else
-                var totalMonths = 12;
-            @endif
-
-
-            // Membuat array kosong untuk label bulan dan data grafik
-            var labels = [];
-            var data = [];
-
-            // Menambahkan label bulan dan data grafik untuk bulan-bulan sebelum Mei dengan nilai nol
-            @php
-                $month = isset($ordersPerMonth[0]->month) ? $ordersPerMonth[0]->month : 0;
-            @endphp
-
-            @for ($i = 0; $i < $month - 1; $i++)
-                labels.push('');
-                data.push(0);
-            @endfor
-
-            // Menambahkan label bulan dan data grafik untuk bulan Mei hingga bulan terakhir dalam data
-            @foreach ($ordersPerMonth as $order)
-                labels.push('{{ date('M', mktime(0, 0, 0, $order->month, 1)) }}');
-                data.push({{ $order->total }});
-            @endforeach
-
-            // Mengganti label bulan menjadi nama bulan yang sesuai
-            for (var i = 0; i < labels.length; i++) {
-                if (labels[i] === '') {
-                    labels[i] = 'May'; // Mengganti label bulan kosong dengan Mei
-                }
-            }
-
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Orders per Month',
-                        data: data,
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        </script>
-
     </div>
 @endsection

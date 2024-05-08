@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OperatorOrderController extends Controller
 {
@@ -99,5 +101,20 @@ class OperatorOrderController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Catatan Admin berhasil diubah.');
+    }
+
+    public function printInvoice($id)
+    {
+        $order = Order::findOrFail($id);
+        $products = $order->products;
+
+        // Render tampilan ke dalam HTML
+        $html = View::make('operator.orders.invoice', compact('order', 'products'))->render();
+
+        // Konversi HTML menjadi PDF
+        $pdf = PDF::loadHTML($html);
+
+        // Download PDF
+        return $pdf->download('invoice-' . $order->id . '.pdf');
     }
 }

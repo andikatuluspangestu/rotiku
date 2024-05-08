@@ -8,6 +8,8 @@ use App\Models\Setting;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserOrderController extends Controller
 {
@@ -124,5 +126,20 @@ class UserOrderController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Pesanan berhasil diselesaikan.');
+    }
+
+    public function printInvoice($id)
+    {
+        $order = Order::findOrFail($id);
+        $products = $order->products;
+
+        // Render tampilan ke dalam HTML
+        $html = View::make('users.orders.invoice', compact('order', 'products'))->render();
+
+        // Konversi HTML menjadi PDF
+        $pdf = PDF::loadHTML($html);
+
+        // Download PDF
+        return $pdf->download('invoice-' . $order->id . '.pdf');
     }
 }

@@ -21,6 +21,7 @@ class AdminController extends Controller
         $products   = Product::all();
         $orders     = Order::all();
         $categories = Category::all();
+        $customers  = User::where('role', 'user')->get();
 
         // Data Pesanan Selesai
         $ordersCompleted = Order::where('shipping_status', 'completed')->get();
@@ -28,11 +29,23 @@ class AdminController extends Controller
         // Data Pemasukan (jumlah amount keseluruhan)
         $incomes = Income::all();
 
+        // Data Pesanan per Bulan
         $ordersPerMonth = Order::selectRaw('MONTH(created_at) as month, COUNT(id) as total')
         ->groupBy('month')
         ->get();
 
-        // Tamplikan view admin.index
-        return view('admin.dashboard', compact('title', 'users', 'products', 'orders', 'categories', 'ordersCompleted', 'incomes', 'ordersPerMonth'));
+        $data = [
+            'title' => $title,
+            'users' => $users,
+            'products' => $products,
+            'orders' => $orders,
+            'categories' => $categories,
+            'customers' => $customers,
+            'ordersCompleted' => $ordersCompleted,
+            'incomes' => $incomes,
+            'ordersPerMonth' => $ordersPerMonth
+        ];
+
+        return view('admin.dashboard', $data);
     }
 }

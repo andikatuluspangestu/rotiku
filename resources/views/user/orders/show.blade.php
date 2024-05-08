@@ -42,8 +42,9 @@
                     <div class="panel-body no-padding">
                         {{-- Tombol Print --}}
                         <div class="text-start">
-                            <a href="" class="btn btn-primary" target="_blank">
-                                <i class="bi bi-printer"></i> Print
+                            <a href="{{ route('user.orders.invoice', ['user' => Auth::user()->id, 'order' => $order->id]) }}"
+                                class="btn btn-primary" target="_blank">
+                                <i class="fa-solid fa-print"></i> Cetak
                             </a>
                         </div>
                         <hr>

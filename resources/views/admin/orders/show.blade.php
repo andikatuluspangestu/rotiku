@@ -28,8 +28,9 @@
                     <div class="panel-body no-padding">
                         {{-- Tombol Print --}}
                         <div class="text-start">
-                            <a href="" class="btn btn-primary" target="_blank">
-                                <i class="bi bi-printer"></i> Print
+                            <a href="{{ route('admin.orders.invoice', ['user' => Auth::user()->id, 'order' => $order->id]) }}"
+                                class="btn btn-primary" target="_blank">
+                                <i class="fa-solid fa-print"></i> Cetak
                             </a>
                         </div>
                         <hr>
@@ -46,16 +47,27 @@
                                         <td>{{ $order->id }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Jenis Pesanan</th>
-                                        <td>{{ $order->type }}</td>
-                                    </tr>
-                                    <tr>
                                         <th>Dibuat</th>
                                         <td>{{ $order->created_at }}</td>
                                     </tr>
                                     <tr>
                                         <th>Total</th>
                                         <td>Rp {{ number_format($order->total) }}</td>
+                                    </tr>
+                                    <tr>
+                                        {{-- Form Admin Notes --}}
+                                        <th>Catatan Admin</th>
+                                        <td>
+                                            <form
+                                                action="{{ route('admin.orders.updateAdminNotes', ['user' => Auth::user()->id, 'order' => $order->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <textarea name="admin_notes" class="form-control"
+                                                    placeholder="Catatan Admin">{{ $order->admin_notes }}</textarea>
+                                                <button type="submit" class="btn btn-sm btn-primary mt-2">Simpan Catatan</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Status Pengiriman</th>
@@ -124,7 +136,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>Konfirmasi Barang Diterima</th>
+                                        <th>Sudah diterima?</th>
                                         <td>
                                             @if ($order->accepted_status == 'accepted')
                                                 <span class="badge bg-success">Diterima</span>
@@ -133,28 +145,9 @@
                                             @endif
                                         </td>
                                     </tr>
-                                    <tr>
-                                        {{-- Form Admin Notes --}}
-                                        <th>Catatan Admin</th>
-                                        <td>
-                                            <form
-                                                action="{{ route('admin.orders.updateAdminNotes', ['user' => Auth::user()->id, 'order' => $order->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <textarea name="admin_notes" class="form-control"
-                                                    placeholder="Catatan Admin">{{ $order->admin_notes }}</textarea>
-                                                <button type="submit" class="btn btn-sm btn-primary mt-2">Simpan Catatan</button>
-                                            </form>
-                                        </td>
-                                    </tr>
                                 </table>
-                            </div>
 
-                            {{-- Detail Pembayaran --}}
-                            <div class="col-12">
-                                <h4>Detail Pembayaran</h4>
-                                <table class="table table-bordered">
+                                <table class="table table-bordered mt-1">
                                     <tr>
                                         <th>Status Pembayaran</th>
                                         <td>
@@ -220,7 +213,6 @@
                             {{-- Detail Produk Pesanan --}}
                             <div class="col-12">
                                 <tr>
-                                    <h4>Detail Produk Pesanan</h4>
                                     <td>
                                         <table class="table table-bordered">
                                             <tr>

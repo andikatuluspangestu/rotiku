@@ -48,6 +48,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Order History
     Route::get('history', [AdminOrderController::class, 'history'])->name('orders.history');
 
+    // Cetak Invoice
+    Route::get('/orders/{order}/invoice', [AdminOrderController::class, 'printInvoice'])->name('orders.invoice');
+
     // updateAdminNotes
     Route::patch('/orders/{order}/updateAdminNotes', [AdminOrderController::class, 'updateAdminNotes'])->name('orders.updateAdminNotes');
 
@@ -91,6 +94,9 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
     // Order History
     Route::get('history', [OperatorOrderController::class, 'history'])->name('orders.history');
 
+    // Cetak Invoice
+    Route::get('/orders/{order}/invoice', [OperatorOrderController::class, 'printInvoice'])->name('orders.invoice');
+
     // updateAdminNotes
     Route::patch('/orders/{order}/updateAdminNotes', [OperatorOrderController::class, 'updateAdminNotes'])->name('orders.updateAdminNotes');
 
@@ -115,6 +121,9 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
     // Completed Order
     Route::patch('/user/orders/{order}/completed', [UserOrderController::class, 'completed'])->name('user.orders.completed');
+
+    // Cetak Invoice
+    Route::get('/orders/{order}/invoice', [UserOrderController::class, 'printInvoice'])->name('orders.invoice');
 
     // updateAccepted
     Route::get('/user/orders/{order}/updateAccepted', [UserOrderController::class, 'updateAccepted'])->name('user.orders.updateAccepted');

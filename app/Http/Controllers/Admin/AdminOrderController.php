@@ -7,6 +7,8 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Income;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminOrderController extends Controller
 {
@@ -40,8 +42,13 @@ class AdminOrderController extends Controller
         // Cek data pesanan berdasarkan ID Order 
         $order = Order::where('id', $id)->first();
 
+        // Validasi data
+        $this->validate($request, [
+            'payment_status' => 'required',
+        ]);
+
         $order->update([
-            'payment_status' => 'paid',
+            'payment_status' => $request->payment_status,
         ]);
 
         // Ambil Field "total" dari data order di atas
@@ -107,5 +114,21 @@ class AdminOrderController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Catatan Admin berhasil diubah.');
+    }
+
+    // Cetak Invoice
+    public function printInvoice($id)
+    {
+        $order = Order::findOrFail($id);
+        $products = $order->products;
+
+        // Render tampilan ke dalam HTML
+        $html = View::make('admin.orders.invoice', compact('order', 'products'))->render();
+
+        // Konversi HTML menjadi PDF
+        $pdf = PDF::loadHTML($html);
+
+        // Download PDF
+        return $pdf->download('invoice-' . $order->id . '.pdf');
     }
 }

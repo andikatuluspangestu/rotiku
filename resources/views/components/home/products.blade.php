@@ -16,8 +16,8 @@
                 <div class="row gy-5">
                     @foreach($products as $product)
                     <div class="col-lg-4 menu-item card p-4 rounded border-0 shadow-sm">
-                        <a href="{{ asset('storage/products/' . $product->photo) }}" class="glightbox"><img
-                                src="{{ asset('storage/products/' . $product->photo) }}" class="menu-img img-fluid" alt=""></a>
+                        <a href="{{ asset('images/products/' . $product->photo) }}" class="glightbox"><img
+                                src="{{ asset('images/products/' . $product->photo) }}" class="menu-img img-fluid" alt=""></a>
                         <h4>
                             {{ $product->name }}
                         </h4>

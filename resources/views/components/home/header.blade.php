@@ -10,7 +10,7 @@
               <ul>
                   <li><a href="#hero">Beranda</a></li>
                   <li><a href="#about">Tentang</a></li>
-                  <li><a href="#menu">Produk</a></li>
+                  <li><a href="#products">Produk</a></li>
                   <li><a href="#contact">Kontak</a></li>
               </ul>
           </nav>
